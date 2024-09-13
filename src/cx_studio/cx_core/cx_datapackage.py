@@ -1,4 +1,11 @@
 class DataPackage:
+    """
+    DataPackage 是一个用于存储和访问嵌套数据的类。
+
+    它允许使用点号（`.`）作为键来访问和设置数据，类似于 JavaScript 对象。
+    数据存储在一个嵌套的字典结构中，可以存储基本数据类型、列表和自身。
+    """
+
     def __init__(self, **kwargs):
         self._data = {}
         for k, v in kwargs.items():
@@ -31,22 +38,22 @@ class DataPackage:
         if isinstance(child, DataPackage):
             child._set_value(*keys, value=value)
             return
-        raise KeyError('Invalid key path:', child_key, keys)
+        raise KeyError("Invalid key path:", child_key, keys)
 
     def __getitem__(self, item):
-        keys = str(item).split('.')
+        keys = str(item).split(".")
         return self._get_value(*keys)
 
     def __setitem__(self, key, value):
-        keys = str(key).split('.')
+        keys = str(key).split(".")
         return self._set_value(*keys, value=DataPackage.__check_value(value))
 
     def __getattr__(self, item):
-        keys = str(item).split('.')
+        keys = str(item).split(".")
         return self._get_value(*keys)
 
     def __setattr__(self, key, value):
-        if str(key).startswith('_'):
+        if str(key).startswith("_"):
             self.__dict__[key] = value
         else:
             self._data[str(key)] = DataPackage.__check_value(value)
@@ -69,7 +76,7 @@ class DataPackage:
     def get(self, path: str, default_value=None):
         result = default_value
         try:
-            result = self._get_value(*path.split('.'))
+            result = self._get_value(*path.split("."))
         except NotImplemented:
             pass
         return result
