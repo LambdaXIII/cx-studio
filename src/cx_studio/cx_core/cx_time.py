@@ -1,10 +1,13 @@
+from numbers import Number
+
+
 class Time:
     SECOND_MS: int = 1000
     MINUTE_MS: int = SECOND_MS * 60
     HOUR_MS: int = MINUTE_MS * 60
 
     def __init__(self, milliseconds=0) -> None:
-        if not isinstance(milliseconds, int | float | Time):
+        if not isinstance(milliseconds, Number | Time):
             raise NotImplemented("Input is not a acceptable number.")
 
         self._ms: int = int(milliseconds)
@@ -28,7 +31,7 @@ class Time:
     def __eq__(self, other):
         if isinstance(other, Time):
             return self._ms == other._ms
-        elif isinstance(other, int | float):
+        elif isinstance(other, Number):
             return self._ms == int(other)
         else:
             raise NotImplemented("Comparing type not supported.")
@@ -39,7 +42,7 @@ class Time:
     def __lt__(self, other):
         if isinstance(other, Time):
             return self._ms < other._ms
-        elif isinstance(other, int | float):
+        elif isinstance(other, Number):
             return self._ms < int(other)
         else:
             raise NotImplemented("Comparing type not supported.")
@@ -56,7 +59,7 @@ class Time:
     def __add__(self, other):
         if isinstance(other, Time):
             return Time(self._ms + other._ms)
-        elif isinstance(other, int | float):
+        elif isinstance(other, Number):
             return Time(self._ms + other)
         else:
             raise NotImplemented()
@@ -64,19 +67,19 @@ class Time:
     def __sub__(self, other):
         if isinstance(other, Time):
             return Time(self._ms - other._ms)
-        elif isinstance(other, int | float):
+        elif isinstance(other, Number):
             return Time(self._ms - other)
         else:
             raise NotImplemented()
 
     def __mul__(self, other):
-        if isinstance(other, int | float):
+        if isinstance(other, Number):
             return Time(self._ms * other)
         else:
             raise NotImplemented()
 
     def __truediv__(self, other):
-        if isinstance(other, int | float):
+        if isinstance(other, Number):
             return Time(self._ms / other)
         else:
             raise NotImplemented()

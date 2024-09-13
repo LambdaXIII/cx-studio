@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from cx_core import Time
+from .cx_time import Time
 
 
 class TimeRangeSupport(ABC):
