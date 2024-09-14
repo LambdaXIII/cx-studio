@@ -1,9 +1,10 @@
-from .cx_time import Time
-from .cx_timebase import Timebase
-from typing import Union
-from enum import StrEnum
 import re
 from dataclasses import dataclass
+from enum import StrEnum
+from typing import Union
+
+from .cx_time import Time
+from .cx_timebase import Timebase
 
 
 class TCMode(StrEnum):
@@ -50,7 +51,7 @@ class TimeCodeInfo:
 
     @classmethod
     def from_time(
-        cls, t: Time, tc_mode: TCMode = TCMode.Code, timebase: Timebase = None
+            cls, t: Time, tc_mode: TCMode = TCMode.Code, timebase: Timebase = None
     ):
         if not isinstance(t, Time):
             raise TypeError("TimeCodeInfo can only handle time by Time type.")
@@ -98,11 +99,11 @@ class TimeCode:
     }
 
     def __init__(
-        self,
-        input_data: Union[Time | int | float | str | TimeCodeInfo],
-        tc_mode: TCMode = TCMode.Code,
-        timebase: Timebase = None,
-        custom_seps: str = None,
+            self,
+            input_data: Union[Time | int | float | str | TimeCodeInfo],
+            tc_mode: TCMode = TCMode.Code,
+            timebase: Timebase = None,
+            custom_seps: str = None,
     ) -> None:
         """初始化时间码对象
 

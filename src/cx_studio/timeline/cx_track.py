@@ -1,4 +1,4 @@
-from cx_core import TimeRangeSupport, Time, DataPackage
+from ..core import TimeRangeSupport, Time, DataPackage
 
 
 class Track(TimeRangeSupport):

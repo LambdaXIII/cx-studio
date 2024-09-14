@@ -1,4 +1,5 @@
 from numbers import Number
+from typing import SupportsInt
 
 
 class Time:
@@ -31,7 +32,7 @@ class Time:
     def __eq__(self, other):
         if isinstance(other, Time):
             return self._ms == other._ms
-        elif isinstance(other, Number):
+        elif isinstance(other, SupportsInt):
             return self._ms == int(other)
         else:
             raise NotImplemented("Comparing type not supported.")
@@ -42,7 +43,7 @@ class Time:
     def __lt__(self, other):
         if isinstance(other, Time):
             return self._ms < other._ms
-        elif isinstance(other, Number):
+        elif isinstance(other, SupportsInt):
             return self._ms < int(other)
         else:
             raise NotImplemented("Comparing type not supported.")
@@ -59,28 +60,28 @@ class Time:
     def __add__(self, other):
         if isinstance(other, Time):
             return Time(self._ms + other._ms)
-        elif isinstance(other, Number):
-            return Time(self._ms + other)
+        elif isinstance(other, SupportsInt):
+            return Time(self._ms + int(other))
         else:
             raise NotImplemented()
 
     def __sub__(self, other):
         if isinstance(other, Time):
             return Time(self._ms - other._ms)
-        elif isinstance(other, Number):
-            return Time(self._ms - other)
+        elif isinstance(other, SupportsInt):
+            return Time(self._ms - int(other))
         else:
             raise NotImplemented()
 
     def __mul__(self, other):
-        if isinstance(other, Number):
-            return Time(self._ms * other)
+        if isinstance(other, SupportsInt):
+            return Time(self._ms * int(other))
         else:
             raise NotImplemented()
 
     def __truediv__(self, other):
-        if isinstance(other, Number):
-            return Time(self._ms / other)
+        if isinstance(other, SupportsInt):
+            return Time(round(self._ms / int(other)))
         else:
             raise NotImplemented()
 

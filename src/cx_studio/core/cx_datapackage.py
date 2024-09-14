@@ -28,17 +28,32 @@ class DataPackage:
             return child
         if isinstance(child, DataPackage):
             return child._get_value(*keys)
-        return NotImplemented
+        return None
 
     def _set_value(self, child_key, *keys, value=None):
-        if not keys and child_key in self._data:
+        if not keys:
             self._data[child_key] = value
             return
+
+        if child_key not in self._data:
+            self._data[child_key] = DataPackage()
+
         child = self._data[child_key]
         if isinstance(child, DataPackage):
             child._set_value(*keys, value=value)
             return
+
         raise KeyError("Invalid key path:", child_key, keys)
+
+    def _del_value(self, child_key, *keys):
+        if not keys:
+            if child_key not in self._data:
+                raise KeyError("Invalid key path", child_key, keys)
+            del self._data[child_key]
+        elif isinstance(self._data[child_key], DataPackage):
+            self._data[child_key]._del_value(*keys)
+        else:
+            raise KeyError('Invalid key path', child_key, keys)
 
     def __getitem__(self, item):
         keys = str(item).split(".")
@@ -48,15 +63,22 @@ class DataPackage:
         keys = str(key).split(".")
         return self._set_value(*keys, value=DataPackage.__check_value(value))
 
+    def __delitem__(self, key):
+        keys = str(key).split('.')
+        self._del_value(*keys)
+
     def __getattr__(self, item):
         keys = str(item).split(".")
         return self._get_value(*keys)
 
     def __setattr__(self, key, value):
-        if str(key).startswith("_"):
+        s_key = str(key)
+        if s_key.startswith("_"):
             self.__dict__[key] = value
+        # elif '.' in s_key:
+        #     self._set_value(*(s_key.split('.')), value=DataPackage.__check_value(value))
         else:
-            self._data[str(key)] = DataPackage.__check_value(value)
+            self._data[s_key] = DataPackage.__check_value(value)
 
     def __len__(self):
         return len(self._data)
