@@ -20,7 +20,7 @@ class TimeRangeSupport(ABC):
 
     def intersects(self, other) -> bool:
         assert isinstance(other, TimeRangeSupport)
-        return self.start <= other.end or self.end >= other.start
+        return self.start <= other.end and self.end >= other.start
 
     def contains_time(self, time: Time) -> bool:
         assert isinstance(time, Time)

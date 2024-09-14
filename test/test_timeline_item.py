@@ -17,3 +17,12 @@ class TestTimelineItem(unittest.TestCase):
         self.assertEqual(b.duration,a.duration)
         b.end = 1500
         self.assertEqual(b.duration,500)
+
+    def test_intersection(self):
+        a = Item(1000,1000)
+        b = Item(500,3000)
+        c = Item(2000,1000)
+        d = Item(5000,100)
+        self.assertTrue(a.intersects(b))
+        self.assertTrue(b.intersects(c))
+        self.assertFalse(a.intersects(d))
