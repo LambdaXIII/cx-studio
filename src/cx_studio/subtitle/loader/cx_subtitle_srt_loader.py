@@ -2,7 +2,7 @@ import re
 from enum import StrEnum
 
 from cx_studio.core import TCMode, Time, TimeCode
-from .cx_abstract_loader import SubtitleLoader
+from .cx_subtitle_loader import SubtitleLoader
 from ..cx_subtitle import Subtitle
 
 

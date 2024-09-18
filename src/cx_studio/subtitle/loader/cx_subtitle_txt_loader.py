@@ -1,7 +1,7 @@
 import re
 
 from cx_studio.core import Time
-from .cx_abstract_loader import SubtitleLoader
+from .cx_subtitle_loader import SubtitleLoader
 from ..cx_subtitle import Subtitle
 
 
@@ -44,4 +44,3 @@ class TxtLoader(SubtitleLoader):
                 content=content
             )
             self._prev_time += duration + self.gap_between_items
-

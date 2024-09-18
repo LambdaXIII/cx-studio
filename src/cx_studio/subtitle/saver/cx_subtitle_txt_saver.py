@@ -1,5 +1,5 @@
 from cx_studio.core import TimeCode
-from .cx_abstract_saver import SubtitleSaver
+from .cx_subtitle_saver import SubtitleSaver
 from ..cx_subtitle import Subtitle
 
 

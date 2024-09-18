@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from functools import lru_cache
 
-from ..core import Time, DataPackage
+from ..core import DataPackage, Time
 
 
 @dataclass(order=True, frozen=True)
@@ -22,5 +22,3 @@ class SubtitleProcessor(ABC):
     @abstractmethod
     def __call__(self, subtitle: Subtitle) -> Subtitle:
         pass
-
-
