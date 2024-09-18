@@ -3,19 +3,19 @@ from os import PathLike
 from pathlib import Path
 from typing import Union
 
-from cx_studio.utils import detect_encoding
+from ..cx_subtitle import Subtitle
 
 
-class SubtitleLoader(ABC):
+class SubtitleSaver(ABC):
     def __init__(self, filename: Union[str | PathLike], encoding=None):
         self._filename = Path(filename)
-        self._encoding = str(encoding)
+        self._encoding = encoding
 
     @property
     def encoding(self):
         if self._encoding and self._encoding != 'auto':
             return self._encoding
-        return detect_encoding(self._filename)
+        return None
 
     @abstractmethod
     def open(self):
@@ -34,5 +34,5 @@ class SubtitleLoader(ABC):
         return False
 
     @abstractmethod
-    def subtitles(self):
+    def write_subtitle(self, subtitle: Subtitle):
         pass

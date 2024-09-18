@@ -51,7 +51,8 @@ class TimeCodeInfo:
 
     @classmethod
     def from_time(
-            cls, t: Time, tc_mode: TCMode = TCMode.Code, timebase: Timebase = None
+            cls, t: Time, tc_mode: TCMode = TCMode.Code,
+            timebase: Timebase = None
     ):
         if not isinstance(t, Time):
             raise TypeError("TimeCodeInfo can only handle time by Time type.")
@@ -79,7 +80,8 @@ class TimeCodeInfo:
             rate = 24 if self.timebase is None else self.timebase.frame_rate
             fff = self.ff / rate * 1000
         return int(
-            round(self.hh * 60 * 60 * 1000 + self.mm * 60 * 1000 + self.ss * 1000 + fff)
+            round(
+                self.hh * 60 * 60 * 1000 + self.mm * 60 * 1000 + self.ss * 1000 + fff)
         )
 
     @property
@@ -130,13 +132,18 @@ class TimeCode:
 
         self._timebase = timebase if timebase is not None else None
         self._mode = tc_mode
-        self._custom_seps = str(custom_seps) if custom_seps is not None else None
+        self._custom_seps = str(
+            custom_seps) if custom_seps is not None else None
 
     @property
     def seps(self) -> str:
         if self._custom_seps:
             return self._custom_seps
         return self.__DEF_SEP[self._mode]
+
+    @property
+    def time(self) -> Time:
+        return self._time
 
     def render(self) -> str:
         info = TimeCodeInfo.from_time(self._time, self._mode, self._timebase)
