@@ -2,7 +2,7 @@ import re
 
 from cx_studio.core import Time
 from .cx_subtitle_loader import SubtitleLoader
-from ..cx_subtitle import Subtitle
+from ..cx_subtitle import StaticSubtitle
 
 
 class TxtLoader(SubtitleLoader):
@@ -38,7 +38,7 @@ class TxtLoader(SubtitleLoader):
             content = re.sub(self.TS_PATTERN, '', line)
             duration = max(len(content) * self.duration_per_char,
                            self.min_duration_per_line)
-            yield Subtitle(
+            yield StaticSubtitle(
                 start=self._prev_time,
                 end=self._prev_time + Time(duration),
                 content=content

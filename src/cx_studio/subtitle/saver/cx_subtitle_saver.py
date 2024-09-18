@@ -3,7 +3,7 @@ from os import PathLike
 from pathlib import Path
 from typing import Union
 
-from ..cx_subtitle import Subtitle
+from ..cx_subtitle import StaticSubtitle
 
 
 class SubtitleSaver(ABC):
@@ -34,5 +34,5 @@ class SubtitleSaver(ABC):
         return False
 
     @abstractmethod
-    def write_subtitle(self, subtitle: Subtitle):
+    def write_subtitle(self, subtitle: StaticSubtitle):
         pass

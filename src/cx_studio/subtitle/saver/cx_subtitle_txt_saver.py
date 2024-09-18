@@ -1,6 +1,6 @@
 from cx_studio.core import TimeCode
 from .cx_subtitle_saver import SubtitleSaver
-from ..cx_subtitle import Subtitle
+from ..cx_subtitle import StaticSubtitle
 
 
 class TxtSaver(SubtitleSaver):
@@ -11,12 +11,12 @@ class TxtSaver(SubtitleSaver):
         self._time_pattern = time_pattern
         self._file = None
 
-    def _compile_content(self, subtitle: Subtitle):
+    def _compile_content(self, subtitle: StaticSubtitle):
         _time = ''
         if self._time_pattern:
             start_tc = TimeCode(subtitle.start)
             end_tc = TimeCode(subtitle.end)
-            duration_tc = TimeCode(subtitle.duration)
+            duration_tc = TimeCode(subtitle.duration())
             _time = str(self._time_pattern).format(start=start_tc, end=end_tc,
                                                    duration=duration_tc)
         _contents = subtitle.content.splitlines()
@@ -32,6 +32,6 @@ class TxtSaver(SubtitleSaver):
             self._file.close()
         return True
 
-    def write_subtitle(self, subtitle: Subtitle):
+    def write_subtitle(self, subtitle: StaticSubtitle):
         line = self._compile_content(subtitle)
         self._file.write(line)

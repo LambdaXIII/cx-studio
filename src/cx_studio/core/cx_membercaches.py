@@ -37,5 +37,3 @@ class MemberCaches:
 
     def __iter__(self):
         return self._cache.__iter__()
-
-

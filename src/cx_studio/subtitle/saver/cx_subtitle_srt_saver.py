@@ -1,6 +1,6 @@
 from cx_studio.core import TimeCode
 from .cx_subtitle_saver import SubtitleSaver
-from ..cx_subtitle import Subtitle
+from ..cx_subtitle import StaticSubtitle
 
 
 class SrtSaver(SubtitleSaver):
@@ -22,7 +22,7 @@ class SrtSaver(SubtitleSaver):
             self._file.close()
         return True
 
-    def _compile_content(self, number: int, subtitle: Subtitle):
+    def _compile_content(self, number: int, subtitle: StaticSubtitle):
         start = TimeCode(subtitle.start)
         end = TimeCode(subtitle.end)
         contents = subtitle.content.splitlines()
@@ -32,7 +32,7 @@ class SrtSaver(SubtitleSaver):
             content=self._newline.join(contents)
         )
 
-    def write_subtitle(self, subtitle: Subtitle):
+    def write_subtitle(self, subtitle: StaticSubtitle):
         compiled_subtitle = self._compile_content(self._number, subtitle)
         self._file.write(compiled_subtitle)
         self._number += 1

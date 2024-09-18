@@ -1,4 +1,4 @@
-from ..core import TimeRangeSupport, Time, DataPackage
+from ..core import DataPackage, Time, TimeRangeSupport
 
 
 class Track(TimeRangeSupport):
@@ -49,7 +49,8 @@ class Track(TimeRangeSupport):
         if len(self._items) == 0:
             return 0
 
-        start_time = item.start if isinstance(item, TimeRangeSupport) else Time(item)
+        start_time = item.start if isinstance(item, TimeRangeSupport) else Time(
+            item)
         for i in range(0, len(self._items)):
             if self._items[i].start > start_time:
                 return i

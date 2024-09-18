@@ -1,9 +1,11 @@
-from ..core import DataPackage, Time, TimeRangeSupport
 from typing import Union
+
+from ..core import DataPackage, Time, TimeRangeSupport
 
 
 class Item(TimeRangeSupport):
-    def __init__(self, start: Union[int,Time] = Time(), duration: Union[Time,int] = Time()) -> None:
+    def __init__(self, start: Union[int, Time] = Time(),
+                 duration: Union[Time, int] = Time()) -> None:
         super().__init__()
         self._start = Time(start)
         self._duration = Time(duration)

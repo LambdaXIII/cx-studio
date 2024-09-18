@@ -2,7 +2,7 @@ import dataclasses
 import re
 
 from .cx_subtitle_processor import SubtitleProcessor
-from ..cx_subtitle import Subtitle
+from ..cx_subtitle import StaticSubtitle
 
 
 class SubtitlePrettifier(SubtitleProcessor):
@@ -53,7 +53,6 @@ class SubtitlePrettifier(SubtitleProcessor):
             if current == result:
                 break
             result = current
-            current = None
         return result
 
     @staticmethod
@@ -68,14 +67,14 @@ class SubtitlePrettifier(SubtitleProcessor):
     def _shrink_long_quotes(content: str):
         return re.sub(r'([\'\"‘“”’])+', r'\1', content)
 
-    def is_subtitle_legal(self, subtitle: Subtitle) -> bool:
+    def is_subtitle_legal(self, subtitle: StaticSubtitle) -> bool:
         if self.remove_empty_subtitles and not subtitle.content:
             return False
-        if self.remove_zero_duration_subtitles and subtitle.duration == 0:
+        if self.remove_zero_duration_subtitles and subtitle.duration() == 0:
             return False
         return True
 
-    def __call__(self, subtitle: Subtitle):
+    def __call__(self, subtitle: StaticSubtitle):
         content = self.__basic_content_cleaning(subtitle.content)
         content = self._strip(content)
         if self.remove_xml_tags:

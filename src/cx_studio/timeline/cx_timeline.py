@@ -1,5 +1,5 @@
 from .cx_track import Track
-from ..core import DataPackage, TimeRangeSupport, Time
+from ..core import DataPackage, Time, TimeRangeSupport
 
 
 class Timeline(TimeRangeSupport):

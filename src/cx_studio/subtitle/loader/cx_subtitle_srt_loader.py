@@ -3,7 +3,7 @@ from enum import StrEnum
 
 from cx_studio.core import TCMode, Time, TimeCode
 from .cx_subtitle_loader import SubtitleLoader
-from ..cx_subtitle import Subtitle
+from ..cx_subtitle import StaticSubtitle
 
 
 class SrtLoader(SubtitleLoader):
@@ -49,8 +49,8 @@ class SrtLoader(SubtitleLoader):
                     if line:
                         content.append(line)
                     else:
-                        yield Subtitle(start=start,
-                                       end=end,
-                                       content=self._newline.join(
-                                           content))
+                        yield StaticSubtitle(start=start,
+                                             end=end,
+                                             content=self._newline.join(
+                                                 content))
                         self._state = self.State.ExpectingNumber

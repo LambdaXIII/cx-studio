@@ -1,1 +1,1 @@
-from .cx_subtitle import Subtitle
+from .cx_subtitle import StaticSubtitle
