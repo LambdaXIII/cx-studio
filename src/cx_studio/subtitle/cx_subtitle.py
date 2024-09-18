@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from functools import lru_cache
 
@@ -16,9 +15,3 @@ class Subtitle:
     @lru_cache
     def duration(self):
         return self.end - self.start
-
-
-class SubtitleProcessor(ABC):
-    @abstractmethod
-    def __call__(self, subtitle: Subtitle) -> Subtitle:
-        pass
