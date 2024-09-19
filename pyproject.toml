@@ -5,9 +5,12 @@ description = "Module for professional video editing."
 authors = ["xiii_1991 <xiii_1991@163.com>"]
 license = "GPLv3"
 readme = "README.md"
+packages = [
+    { include = 'cx_studio', from = 'src' }
+]
 
 [tool.poetry.dependencies]
-python = ">=3.12"
+python = ">=3.11"
 chardet = "^5.2.0"
 
 
